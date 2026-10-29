@@ -1,0 +1,40 @@
+[gd_scene load_steps=4 format=3]
+
+[ext_resource type="Script" path="res://scripts/drill_ship/drill_ship.gd" id="1_ship"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_deck"]
+size = Vector2(240, 18)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_safe"]
+size = Vector2(220, 84)
+
+[node name="DrillShip" type="AnimatableBody2D"]
+script = ExtResource("1_ship")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_deck")
+
+[node name="Deck" type="Polygon2D" parent="."]
+color = Color(0.48, 0.56, 0.62, 1)
+polygon = PackedVector2Array(-120, -9, 120, -9, 120, 9, -120, 9)
+
+[node name="Roof" type="Polygon2D" parent="."]
+color = Color(0.42, 0.52, 0.59, 1)
+polygon = PackedVector2Array(-120, -106, 120, -106, 120, -96, -120, -96)
+
+[node name="HullLeft" type="Polygon2D" parent="."]
+color = Color(0.35, 0.43, 0.50, 1)
+polygon = PackedVector2Array(-120, -106, -110, -106, -110, -9, -120, -9)
+
+[node name="HullRight" type="Polygon2D" parent="."]
+color = Color(0.35, 0.43, 0.50, 1)
+polygon = PackedVector2Array(110, -106, 120, -106, 120, -9, 110, -9)
+
+[node name="SafeZone" type="Area2D" parent="."]
+position = Vector2(0, -52)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SafeZone"]
+shape = SubResource("RectangleShape2D_safe")
+
+[connection signal="body_entered" from="SafeZone" to="." method="_on_safe_zone_body_entered"]
+[connection signal="body_exited" from="SafeZone" to="." method="_on_safe_zone_body_exited"]

@@ -1,0 +1,40 @@
+[gd_scene load_steps=8 format=3]
+
+[ext_resource type="Script" path="res://scripts/world/world.gd" id="1_world"]
+[ext_resource type="Script" path="res://scripts/terrain/terrain.gd" id="2_terrain"]
+[ext_resource type="PackedScene" path="res://scenes/drill_ship/drill_ship.tscn" id="3_ship"]
+[ext_resource type="PackedScene" path="res://scenes/player/player.tscn" id="4_player"]
+[ext_resource type="Script" path="res://scripts/economy/economy.gd" id="5_economy"]
+[ext_resource type="PackedScene" path="res://scenes/ui/hud.tscn" id="6_hud"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ground"]
+size = Vector2(1024, 20)
+
+[node name="World" type="Node2D"]
+script = ExtResource("1_world")
+
+[node name="Terrain" type="TileMapLayer" parent="."]
+script = ExtResource("2_terrain")
+
+[node name="DrillShip" parent="." instance=ExtResource("3_ship")]
+position = Vector2(0, 100)
+
+[node name="Player" parent="." instance=ExtResource("4_player")]
+position = Vector2(0, 50)
+
+[node name="DebugGround" type="StaticBody2D" parent="."]
+position = Vector2(0, 140)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DebugGround"]
+shape = SubResource("RectangleShape2D_ground")
+
+[node name="Visuals" type="Polygon2D" parent="DebugGround"]
+color = Color(0.27, 0.32, 0.38, 1)
+polygon = PackedVector2Array(-512, -10, 512, -10, 512, 10, -512, 10)
+
+[node name="Collectibles" type="Node2D" parent="."]
+
+[node name="Economy" type="Node" parent="."]
+script = ExtResource("5_economy")
+
+[node name="HUD" parent="." instance=ExtResource("6_hud")]
