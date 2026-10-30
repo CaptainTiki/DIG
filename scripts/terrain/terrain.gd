@@ -36,6 +36,9 @@ func _build_test_tileset() -> void:
     var atlas := TileSetAtlasSource.new()
     atlas.texture = ImageTexture.create_from_image(atlas_image)
     atlas.texture_region_size = Vector2i(CELL_SIZE, CELL_SIZE)
+    # Add the atlas before configuring tile collision data so it inherits the
+    # TileSet's physics layers. Otherwise TileData has no physics layer 0.
+    tiles.add_source(atlas, SOURCE_ID)
     for i in range(3):
         var coordinates := Vector2i(i, 0)
         atlas.create_tile(coordinates)
@@ -46,7 +49,6 @@ func _build_test_tileset() -> void:
             Vector2(12, 12), Vector2(-12, 12)
         ]))
 
-    tiles.add_source(atlas, SOURCE_ID)
     tile_set = tiles
 
 
@@ -76,3 +78,4 @@ func excavate_global_point(global_point: Vector2) -> bool:
     if tile_set == null:
         return false
     return excavate_cell(local_to_map(to_local(global_point)))
+
