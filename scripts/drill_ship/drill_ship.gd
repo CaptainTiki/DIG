@@ -1,7 +1,7 @@
 class_name DrillShip
 extends AnimatableBody2D
 ## The ship's body will move through the world in milestone D.
-## The safe zone is the only implemented ship behavior for now.
+## Its safe zone supplies oxygen and battery recharge through player signals.
 
 signal player_entered
 signal player_exited

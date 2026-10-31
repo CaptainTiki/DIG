@@ -6,7 +6,7 @@ Organize the **agreed v0.1 prototype** without implementing every system up fron
 
 Core prototype loop: **Dig → Collect → Return → Sell → Refuel → Descend → Repeat.**
 
-The current commit establishes the scene ownership and data boundaries; it is not a playable mining loop yet.
+The current prototype supports digging, collection, and survival resources. The economy and ship descent portions of the full loop remain unfinished.
 
 ## Scene tree
 
@@ -20,8 +20,10 @@ World (Node2D)
 │       └── CollisionShape2D
 ├── Player (CharacterBody2D)           [player.tscn]
 │   ├── CollisionShape2D
+│   ├── WorkLight (Polygon2D)
+│   ├── JetpackExhaust (Node2D)
 │   ├── Visuals (Polygon2D)
-│   ├── DrillRay (RayCast2D, disabled until mining)
+│   ├── DrillRay (RayCast2D, reserved; runtime drilling uses a physics query)
 │   └── Camera2D
 ├── Collectibles (Node2D)
 │   └── OrePickup (Area2D)            [spawned as ore is excavated]
@@ -32,8 +34,8 @@ World (Node2D)
 ## Separation of responsibilities
 
 - **Terrain** owns tile lookup and removal. The player's drill and ship's drill will call the same public excavation API. Neither should call `erase_cell()` directly.
-- **Player** owns movement and, later, drill input, carried ore, oxygen, and shared battery. Ship-specific economics should not live here.
-- **DrillShip** owns the safe zone and, later, fuel-funded descent. Its physical movement should occur independently of the terrain's tile removal implementation.
+- **Player** owns movement, drill input, carried ore, oxygen, and the battery shared by drilling, jetpack thrust, and the work light. Ship-specific economics should not live here.
+- **DrillShip** owns the safe zone, which supplies oxygen and battery recharge, and later fuel-funded descent. Its physical movement should occur independently of the terrain's tile removal implementation.
 - **Economy** owns credits and spending. Later, ore sales and fuel costs use the same balance API. Corporate debt and interest are out of v0.1.
 - **World** wires together scenes and gameplay events, without duplicating their core logic.
 - **HUD** displays state; it should not calculate game rules.
@@ -43,7 +45,7 @@ World (Node2D)
 ## Implementation order
 
 1. **Milestone A: Diggable world (complete).** Terrain tiles and collisions, drill targeting, tile excavation, finite ore, persistent pickups, and limited carrying capacity.
-2. **Milestone B: Survival.** Add a shared battery for drill/light/jetpack, oxygen drain outside, ship recharging, and ship entry/exit behavior.
+2. **Milestone B: Survival (complete).** Shared battery for drill/light/jetpack, oxygen drain outside, ship recharging, and ship entry/exit behavior.
 3. **Milestone C: Economy.** Unload and sell ore, track credits, buy fuel.
 4. **Milestone D: Descent.** Lower the ship through empty terrain cheaply or remove a row across its footprint at a higher fuel cost when obstructed. Test moving the player and safe zone with the ship.
 

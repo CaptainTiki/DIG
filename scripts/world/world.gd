@@ -16,7 +16,15 @@ func _ready() -> void:
     drill_ship.player_exited.connect(_on_player_exited_ship)
     terrain.cell_excavated.connect(_on_cell_excavated)
     player.cargo_changed.connect(hud.set_cargo)
+    player.battery_changed.connect(hud.set_battery)
+    player.oxygen_changed.connect(hud.set_oxygen)
+    player.work_light_changed.connect(hud.set_work_light)
+    player.set_inside_ship(true)
     hud.set_cargo(player.ore_carried, player.cargo_capacity)
+    hud.set_battery(player.battery, player.maximum_battery)
+    hud.set_oxygen(player.oxygen, player.maximum_oxygen)
+    hud.set_work_light(player.work_light_enabled)
+    hud.set_ship_status(true)
 
 
 func _on_cell_excavated(map_cell: Vector2i, was_ore: bool) -> void:
@@ -32,8 +40,10 @@ func spawn_ore_pickup(map_cell: Vector2i) -> Area2D:
 
 
 func _on_player_entered_ship() -> void:
+    player.set_inside_ship(true)
     hud.set_ship_status(true)
 
 
 func _on_player_exited_ship() -> void:
+    player.set_inside_ship(false)
     hud.set_ship_status(false)

@@ -12,9 +12,25 @@ script = ExtResource("1_player")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_player")
 
+[node name="WorkLight" type="Polygon2D" parent="."]
+z_index = -1
+color = Color(1, 0.82, 0.38, 0.16)
+polygon = PackedVector2Array(4, -7, 78, -34, 78, 34, 4, 7)
+
 [node name="Visuals" type="Polygon2D" parent="."]
 color = Color(0.95, 0.76, 0.31, 1)
 polygon = PackedVector2Array(-8, -12, 8, -12, 8, 12, -8, 12)
+
+[node name="JetpackExhaust" type="Node2D" parent="."]
+visible = false
+
+[node name="LeftFlame" type="Polygon2D" parent="JetpackExhaust"]
+color = Color(1, 0.45, 0.12, 0.9)
+polygon = PackedVector2Array(-7, 10, -2, 10, -4, 22)
+
+[node name="RightFlame" type="Polygon2D" parent="JetpackExhaust"]
+color = Color(1, 0.74, 0.24, 0.9)
+polygon = PackedVector2Array(2, 10, 7, 10, 4, 19)
 
 [node name="DrillRay" type="RayCast2D" parent="."]
 enabled = false

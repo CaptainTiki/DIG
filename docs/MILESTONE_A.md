@@ -30,4 +30,4 @@ godot --headless --path . --script res://tests/test_milestone_a.gd
 
 ### Next work
 
-Begin Milestone B with a shared battery and jetpack, then add oxygen drain outside the ship and recharging inside it. Keep ship descent and the economy in later milestones.
+Milestone B is now complete. Continue with Milestone C: unloading ore, selling it for credits, and purchasing fuel for descent.
