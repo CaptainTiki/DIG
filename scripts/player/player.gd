@@ -1,15 +1,16 @@
 class_name DigPlayer
 extends CharacterBody2D
-## Milestone A: movement and simple mouse-targeted digging.
-## Oxygen, battery, jetpack and cargo capacity are later tasks.
+## Milestone A: movement, mouse-targeted digging, and limited ore cargo.
+## Oxygen, battery, and jetpack are later tasks.
 
-signal ore_collected(amount: int)
+signal cargo_changed(amount: int, capacity: int)
 
 @export var move_speed: float = 170.0
 @export var jump_velocity: float = -305.0
 @export var gravity: float = 900.0
 @export var drill_reach: float = 80.0
 @export var drill_interval: float = 0.18
+@export_range(1, 64, 1) var cargo_capacity: int = 8
 
 var ore_carried: int = 0
 var _drill_cooldown: float = 0.0
@@ -45,8 +46,15 @@ func _try_drill() -> void:
     terrain.excavate_global_point(hit_position)
 
 
-func collect_ore(amount: int = 1) -> void:
+func try_collect_ore(amount: int = 1) -> bool:
     if amount <= 0:
-        return
+        return false
+    if ore_carried + amount > cargo_capacity:
+        return false
     ore_carried += amount
-    ore_collected.emit(ore_carried)
+    cargo_changed.emit(ore_carried, cargo_capacity)
+    return true
+
+
+func is_cargo_full() -> bool:
+    return ore_carried >= cargo_capacity

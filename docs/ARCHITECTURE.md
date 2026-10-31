@@ -23,10 +23,8 @@ World (Node2D)
 │   ├── Visuals (Polygon2D)
 │   ├── DrillRay (RayCast2D, disabled until mining)
 │   └── Camera2D
-├── DebugGround (StaticBody2D)         [TEMPORARY; remove when terrain has collision]
-│   ├── CollisionShape2D
-│   └── Visuals (Polygon2D)
-├── Collectibles (Node2D)             [empty container]
+├── Collectibles (Node2D)
+│   └── OrePickup (Area2D)            [spawned as ore is excavated]
 ├── Economy (Node)                     [economy.gd]
 └── HUD (CanvasLayer)                  [hud.tscn]
 ```
@@ -44,7 +42,7 @@ World (Node2D)
 
 ## Implementation order
 
-1. **Milestone A: Diggable world.** Add terrain tiles and collisions, drill targeting, tile excavation, finite ore, pickups, and carrying capacity. Delete the temporary `DebugGround` once a traversable tile map works.
+1. **Milestone A: Diggable world (complete).** Terrain tiles and collisions, drill targeting, tile excavation, finite ore, persistent pickups, and limited carrying capacity.
 2. **Milestone B: Survival.** Add a shared battery for drill/light/jetpack, oxygen drain outside, ship recharging, and ship entry/exit behavior.
 3. **Milestone C: Economy.** Unload and sell ore, track credits, buy fuel.
 4. **Milestone D: Descent.** Lower the ship through empty terrain cheaply or remove a row across its footprint at a higher fuel cost when obstructed. Test moving the player and safe zone with the ship.

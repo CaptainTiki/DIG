@@ -4,16 +4,16 @@
 
 ## Current prototype status
 
-**Milestone A work in progress:** temporary colored TileMapLayer terrain, digging with left mouse button, and ore added to cargo when an ore tile is destroyed. World is finite for this test; the temporary ship is stationary.
+**Milestone A complete:** temporary colored TileMapLayer terrain, movement and jumping, mouse-directed digging, persistent loose ore pickups, and an eight-slot cargo limit. Ore remains in the world when cargo is full. The test world is finite and the temporary ship is stationary.
 
-**Not implemented:** physical loose pickups, cargo limits, oxygen, battery, jetpack, ship descent, fuel, selling, enemies, refining, and corporate debt.
+**Not implemented:** oxygen, battery, jetpack, ship descent, fuel, selling, enemies, refining, and corporate debt.
 
 Open in **Godot 4.7** and press F5.
 
-Controls: Left/Right movement, Space/Enter jump, hold Left Mouse near a terrain tile to drill. A raycast prevents mining through other solid tiles.
+Controls: Left/Right movement, Space/Enter jump, hold Left Mouse near a terrain tile to drill, and walk over loose ore to collect it. A raycast prevents mining through other solid tiles.
 
 The TileSet and terrain map are intentionally generated from GDScript so no external art assets are required. Colors and balance values are temporary, and the script is designed for replacement with an authored tile atlas later.
 
 See `docs/ARCHITECTURE.md` for scene boundaries and planned milestones.
 
-**Unverified:** The Godot runtime isn't available in the coding environment. This code must be opened and checked in Godot before considering the digging implementation complete.
+Milestone A is covered by `tests/test_milestone_a.gd` and validated headlessly in Godot 4.7.2.

@@ -20,8 +20,8 @@ text = "LOCATION: SHIP SAFE ZONE"
 
 [node name="CargoLabel" type="Label" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
-text = "ORE: 0"
+text = "ORE: 0 / 8"
 
 [node name="HintLabel" type="Label" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
-text = "Arrows: Move    Space: Jump    Left Mouse: Drill\nMilestone A test: no oxygen or battery yet."
+text = "Arrows: Move    Space: Jump    Left Mouse: Drill\nWalk over loose ore to collect it. No oxygen or battery yet."
