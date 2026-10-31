@@ -6,7 +6,7 @@ Organize the **agreed v0.1 prototype** without implementing every system up fron
 
 Core prototype loop: **Dig → Collect → Return → Sell → Refuel → Descend → Repeat.**
 
-The current prototype supports digging, collection, and survival resources. The economy and ship descent portions of the full loop remain unfinished.
+The current prototype supports digging, collection, survival resources, ore sales, and fuel purchases. Ship descent remains unfinished.
 
 ## Scene tree
 
@@ -16,6 +16,7 @@ World (Node2D)
 ├── DrillShip (AnimatableBody2D)       [drill_ship.tscn]
 │   ├── CollisionShape2D              [deck collision only, temporary]
 │   ├── Deck / Roof / HullLeft / HullRight (Polygon2D placeholders)
+│   ├── Fuel reserve                   [capacity and consumption API]
 │   └── SafeZone (Area2D)
 │       └── CollisionShape2D
 ├── Player (CharacterBody2D)           [player.tscn]
@@ -35,8 +36,8 @@ World (Node2D)
 
 - **Terrain** owns tile lookup and removal. The player's drill and ship's drill will call the same public excavation API. Neither should call `erase_cell()` directly.
 - **Player** owns movement, drill input, carried ore, oxygen, and the battery shared by drilling, jetpack thrust, and the work light. Ship-specific economics should not live here.
-- **DrillShip** owns the safe zone, which supplies oxygen and battery recharge, and later fuel-funded descent. Its physical movement should occur independently of the terrain's tile removal implementation.
-- **Economy** owns credits and spending. Later, ore sales and fuel costs use the same balance API. Corporate debt and interest are out of v0.1.
+- **DrillShip** owns the safe zone, fuel reserve, and later fuel-funded descent. Its physical movement should occur independently of the terrain's tile removal implementation.
+- **Economy** owns credits, ore pricing, and fuel pricing. Corporate debt and interest are out of v0.1.
 - **World** wires together scenes and gameplay events, without duplicating their core logic.
 - **HUD** displays state; it should not calculate game rules.
 
@@ -46,7 +47,7 @@ World (Node2D)
 
 1. **Milestone A: Diggable world (complete).** Terrain tiles and collisions, drill targeting, tile excavation, finite ore, persistent pickups, and limited carrying capacity.
 2. **Milestone B: Survival (complete).** Shared battery for drill/light/jetpack, oxygen drain outside, ship recharging, and ship entry/exit behavior.
-3. **Milestone C: Economy.** Unload and sell ore, track credits, buy fuel.
+3. **Milestone C: Economy (complete).** Unload and sell ore, track credits, and buy fuel for the ship.
 4. **Milestone D: Descent.** Lower the ship through empty terrain cheaply or remove a row across its footprint at a higher fuel cost when obstructed. Test moving the player and safe zone with the ship.
 
 ## Deliberately deferred
@@ -56,6 +57,6 @@ Procedural generation, enemy pockets and combat, ship damage, crushers, smelters
 ## Implementation notes
 
 - This project was created in Godot **4.7** (Compatibility renderer). Preserve that starting configuration.
-- The `TileMapLayer` has no `TileSet` yet; the excavate method safely returns `false` until terrain is populated.
+- The temporary `TileSet` and finite test map are generated at runtime; excavation safely rejects empty cells.
 - Treat every resource capacity, rate, tile size, and sale price as a playtest variable, **not** a locked design choice.
 - Temporary placeholder geometry is only for scene/signal validation, not an art direction.

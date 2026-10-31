@@ -6,6 +6,10 @@ extends CanvasLayer
 @onready var battery_label: Label = $MarginContainer/VBoxContainer/BatteryLabel
 @onready var oxygen_label: Label = $MarginContainer/VBoxContainer/OxygenLabel
 @onready var light_label: Label = $MarginContainer/VBoxContainer/LightLabel
+@onready var credits_label: Label = $MarginContainer/VBoxContainer/CreditsLabel
+@onready var fuel_label: Label = $MarginContainer/VBoxContainer/FuelLabel
+@onready var economy_label: Label = $MarginContainer/VBoxContainer/EconomyLabel
+@onready var economy_hint_label: Label = $MarginContainer/VBoxContainer/EconomyHintLabel
 
 
 func set_ship_status(is_inside: bool) -> void:
@@ -34,3 +38,21 @@ func set_oxygen(amount: float, maximum: float) -> void:
 func set_work_light(enabled: bool) -> void:
     light_label.text = "WORK LIGHT: ON" if enabled else "WORK LIGHT: OFF"
     light_label.modulate = Color("#f2cd79") if enabled else Color("#8d99a6")
+
+
+func set_credits(credits: int) -> void:
+    credits_label.text = "CREDITS: %d" % credits
+
+
+func set_fuel(amount: int, capacity: int) -> void:
+    fuel_label.text = "FUEL: %d / %d" % [amount, capacity]
+    fuel_label.modulate = Color("#ef7b62") if amount <= 0 else Color.WHITE
+
+
+func set_economy_rates(ore_price: int, fuel_price: int) -> void:
+    economy_hint_label.text = "E: SELL CARGO (%d CR/ORE)    B: BUY FUEL (%d CR)" % [ore_price, fuel_price]
+
+
+func show_economy_message(message: String, success: bool) -> void:
+    economy_label.text = message
+    economy_label.modulate = Color("#8fd694") if success else Color("#ef7b62")

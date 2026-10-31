@@ -181,5 +181,14 @@ func try_collect_ore(amount: int = 1) -> bool:
     return true
 
 
+func unload_all_ore() -> int:
+    if ore_carried <= 0:
+        return 0
+    var unloaded := ore_carried
+    ore_carried = 0
+    cargo_changed.emit(ore_carried, cargo_capacity)
+    return unloaded
+
+
 func is_cargo_full() -> bool:
     return ore_carried >= cargo_capacity

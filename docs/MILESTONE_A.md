@@ -30,4 +30,4 @@ godot --headless --path . --script res://tests/test_milestone_a.gd
 
 ### Next work
 
-Milestone B is now complete. Continue with Milestone C: unloading ore, selling it for credits, and purchasing fuel for descent.
+Milestones B and C are now complete. Continue with Milestone D: fuel-funded ship descent and large-footprint excavation.
