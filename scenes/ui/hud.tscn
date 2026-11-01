@@ -7,7 +7,7 @@ script = ExtResource("1_hud")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 offset_right = 550.0
-offset_bottom = 285.0
+offset_bottom = 335.0
 theme_override_constants/margin_left = 16
 theme_override_constants/margin_top = 16
 
@@ -49,6 +49,14 @@ text = "SHIP SERVICES READY"
 [node name="EconomyHintLabel" type="Label" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
 text = "E: SELL CARGO (10 CR/ORE)    B: BUY FUEL (25 CR)"
+
+[node name="DescentLabel" type="Label" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "DESCENT: 0 ROWS"
+
+[node name="DescentHintLabel" type="Label" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "R: LOWER SHIP (1 FUEL CLEAR / 3 FUEL BLOCKED)"
 
 [node name="HintLabel" type="Label" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2

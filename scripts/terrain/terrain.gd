@@ -79,3 +79,35 @@ func excavate_global_point(global_point: Vector2) -> bool:
         return false
     return excavate_cell(local_to_map(to_local(global_point)))
 
+
+func occupied_cells_in_global_rect(global_rect: Rect2) -> Array[Vector2i]:
+    var cells: Array[Vector2i] = []
+    if tile_set == null or global_rect.size.x <= 0.0 or global_rect.size.y <= 0.0:
+        return cells
+
+    # Treat the rectangle as half-open so cells merely touching either edge
+    # are not included in a ship-drill footprint.
+    var local_start := to_local(global_rect.position + Vector2(0.001, 0.001))
+    var local_end := to_local(global_rect.end - Vector2(0.001, 0.001))
+    var first_cell := local_to_map(local_start)
+    var last_cell := local_to_map(local_end)
+    var min_x := mini(first_cell.x, last_cell.x)
+    var max_x := maxi(first_cell.x, last_cell.x)
+    var min_y := mini(first_cell.y, last_cell.y)
+    var max_y := maxi(first_cell.y, last_cell.y)
+
+    for y in range(min_y, max_y + 1):
+        for x in range(min_x, max_x + 1):
+            var cell := Vector2i(x, y)
+            if get_cell_source_id(cell) != -1:
+                cells.append(cell)
+    return cells
+
+
+func excavate_cells(cells: Array[Vector2i]) -> int:
+    var excavated := 0
+    for cell in cells:
+        if excavate_cell(cell):
+            excavated += 1
+    return excavated
+

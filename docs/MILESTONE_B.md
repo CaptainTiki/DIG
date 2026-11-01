@@ -28,4 +28,4 @@ godot --headless --path . --script res://tests/test_milestone_b.gd
 
 ### Next work
 
-Milestone C is now complete. Continue with Milestone D: fuel-funded ship descent and the ship's large excavation footprint.
+Milestones C and D are now complete. Continue with full-loop playtesting, balance tuning, and feel improvements.

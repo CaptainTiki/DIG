@@ -28,4 +28,4 @@ godot --headless --path . --script res://tests/test_milestone_c.gd
 
 ### Next work
 
-Begin Milestone D: lower the drill ship through empty space cheaply, excavate its full footprint when blocked, consume fuel, and carry the player and safe zone with it.
+Milestone D is now complete. Continue with full-loop playtesting, balance tuning, and feel improvements before expanding scope.

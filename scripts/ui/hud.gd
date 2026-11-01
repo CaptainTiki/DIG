@@ -10,6 +10,8 @@ extends CanvasLayer
 @onready var fuel_label: Label = $MarginContainer/VBoxContainer/FuelLabel
 @onready var economy_label: Label = $MarginContainer/VBoxContainer/EconomyLabel
 @onready var economy_hint_label: Label = $MarginContainer/VBoxContainer/EconomyHintLabel
+@onready var descent_label: Label = $MarginContainer/VBoxContainer/DescentLabel
+@onready var descent_hint_label: Label = $MarginContainer/VBoxContainer/DescentHintLabel
 
 
 func set_ship_status(is_inside: bool) -> void:
@@ -56,3 +58,11 @@ func set_economy_rates(ore_price: int, fuel_price: int) -> void:
 func show_economy_message(message: String, success: bool) -> void:
     economy_label.text = message
     economy_label.modulate = Color("#8fd694") if success else Color("#ef7b62")
+
+
+func set_descent_rows(rows: int) -> void:
+    descent_label.text = "DESCENT: %d ROWS" % rows
+
+
+func set_descent_rates(empty_cost: int, drilling_cost: int) -> void:
+    descent_hint_label.text = "R: LOWER SHIP (%d FUEL CLEAR / %d FUEL BLOCKED)" % [empty_cost, drilling_cost]

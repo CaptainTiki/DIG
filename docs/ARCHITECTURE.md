@@ -6,7 +6,7 @@ Organize the **agreed v0.1 prototype** without implementing every system up fron
 
 Core prototype loop: **Dig → Collect → Return → Sell → Refuel → Descend → Repeat.**
 
-The current prototype supports digging, collection, survival resources, ore sales, and fuel purchases. Ship descent remains unfinished.
+The v0.1 prototype supports the complete mechanical loop: digging, collection, survival, selling, refueling, and ship descent.
 
 ## Scene tree
 
@@ -36,7 +36,7 @@ World (Node2D)
 
 - **Terrain** owns tile lookup and removal. The player's drill and ship's drill will call the same public excavation API. Neither should call `erase_cell()` directly.
 - **Player** owns movement, drill input, carried ore, oxygen, and the battery shared by drilling, jetpack thrust, and the work light. Ship-specific economics should not live here.
-- **DrillShip** owns the safe zone, fuel reserve, and later fuel-funded descent. Its physical movement should occur independently of the terrain's tile removal implementation.
+- **DrillShip** owns the safe zone, fuel reserve, descent footprint, and fuel-funded movement. It asks Terrain to excavate blocked cells through the shared API.
 - **Economy** owns credits, ore pricing, and fuel pricing. Corporate debt and interest are out of v0.1.
 - **World** wires together scenes and gameplay events, without duplicating their core logic.
 - **HUD** displays state; it should not calculate game rules.
@@ -48,7 +48,7 @@ World (Node2D)
 1. **Milestone A: Diggable world (complete).** Terrain tiles and collisions, drill targeting, tile excavation, finite ore, persistent pickups, and limited carrying capacity.
 2. **Milestone B: Survival (complete).** Shared battery for drill/light/jetpack, oxygen drain outside, ship recharging, and ship entry/exit behavior.
 3. **Milestone C: Economy (complete).** Unload and sell ore, track credits, and buy fuel for the ship.
-4. **Milestone D: Descent.** Lower the ship through empty terrain cheaply or remove a row across its footprint at a higher fuel cost when obstructed. Test moving the player and safe zone with the ship.
+4. **Milestone D: Descent (complete).** Lower the ship through empty terrain cheaply or remove a row across its footprint at a higher fuel cost when obstructed. The player and safe zone move with the ship.
 
 ## Deliberately deferred
 
